@@ -1,0 +1,63 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+header,
+main,
+footer {
+  width: 700;
+  min-width: 50%;
+  margin: 0 auto;
+}
+
+header {
+  height: 150px;
+  background-color: #999;
+}
+header .zoneLogo {
+  color: green;
+  width: 400px;
+  float: left;
+}
+header .zoneBaseline {
+  float: right;
+  color: #000;
+}
+
+main {
+  padding: 30px;
+}
+main article {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+}
+main article picture {
+  margin-right: 20px;
+  max-width: 300px;
+  width: 30%;
+}
+main article picture img {
+  width: 100%;
+}
+main form input,
+main form textarea {
+  display: block;
+  margin-bottom: 20px;
+}
+main form input[type="submit"],
+main form #envoyermonform {
+  padding: 10px;
+  font-size: 10px;
+}
+
+footer {
+  height: 150px;
+  background-color: #999;
+  padding: 20px;
+}
+footer ul {
+  padding: 0;
+  list-style-type: none;
+}

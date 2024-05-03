@@ -1,0 +1,32 @@
+[
+    {
+        "song_name": "",
+        "artist": "",
+        "type_of_music": "",
+        "score": 5
+    },
+    {
+        "song_name": "e",
+        "artist": "z",
+        "type_of_music": "a",
+        "score": 5
+    },
+    {
+        "song_name": "ça plane pour moi",
+        "artist": "Un mec",
+        "type_of_music": "music",
+        "score": 0
+    },
+    {
+        "song_name": "ezr",
+        "artist": "er",
+        "type_of_music": "ezr",
+        "score": 0
+    },
+    {
+        "song_name": "aze",
+        "artist": "sd",
+        "type_of_music": "q",
+        "score": 65
+    }
+]
