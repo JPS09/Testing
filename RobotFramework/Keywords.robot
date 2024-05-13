@@ -56,8 +56,6 @@ Click on Element with Ratings
     ${visible_element}    Get First Visible WebElement    ${xpath_select_first_element_with_rating}
     ${status}    Run Keyword And Return Status    Wait Until Element Is Visible    ${visible_element}    15
 
-    ${is_visible?}    Run Keyword And Return Status    Element Should be Visible    ${visible_element}    15
-
     IF    '${status}'=='True'
         Click Element    ${xpath_select_first_element_with_rating}
     ELSE
