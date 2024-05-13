@@ -49,10 +49,6 @@ Get First Visible WebElement
     RETURN    ${visible_element}
 
 Click on Element with Ratings
-    # Récupérer tout les élements qui corrrespondent à mon xpath
-    # Il faut les récupérer en tant que webElements
-    # Ensuite utiliser getCSSValue pour récupérer le premier qui N'A PAS de display:none
-    # Lorsque le premier élément réellement visible continuer sur le reste de la logique
     ${visible_element}    Get First Visible WebElement    ${xpath_select_first_element_with_rating}
     ${status}    Run Keyword And Return Status    Wait Until Element Is Visible    ${visible_element}    15
 
