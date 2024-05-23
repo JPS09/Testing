@@ -1,0 +1,146 @@
+{
+	"info": {
+		"_postman_id": "959a674e-c48c-4349-9011-164708a30fb5",
+		"name": "Chuck Norris API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "35106117"
+	},
+	"item": [
+		{
+			"name": "Fetch Categories",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();\r",
+							"const number_categories = parseInt(pm.variables.get(\"number_of_categories\"), 10)\r",
+							"pm.test(`Must be ${number_categories} categories`, function () {\r",
+							"    pm.expect(response.length).to.equal(number_categories)\r",
+							"});\r",
+							"\r",
+							"pm.environment.set(\"available_categories\", pm.variables.replaceIn(response))"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const data_things = Array.from(pm.variables.get(\"available_categories\"))\r",
+							"if (data_things.length > 0) {\r",
+							"    console.log(\"Categories have already been fetched previously and are callable with the 'available_categories' env variable\")\r",
+							"    pm.execution.skipRequest()\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/jokes/categories",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"jokes",
+						"categories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Feth a random joke from a random category",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const get_categories = pm.variables.get(\"available_categories\")\r",
+							"const rand_length = get_categories[Math.floor(Math.random() * get_categories.length)]\r",
+							"pm.environment.set(\"rand_category\", pm.variables.replaceIn(rand_length))"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check JSON Structure\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property(\"categories\");\r",
+							"    pm.expect(jsonData).to.have.property(\"created_at\");\r",
+							"    pm.expect(jsonData).to.have.property(\"icon_url\");\r",
+							"    pm.expect(jsonData).to.have.property(\"id\");\r",
+							"    pm.expect(jsonData).to.have.property(\"updated_at\");\r",
+							"    pm.expect(jsonData).to.have.property(\"url\");\r",
+							"    pm.expect(jsonData).to.have.property(\"value\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.chucknorris.io/jokes/random?category={{rand_category}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"chucknorris",
+						"io"
+					],
+					"path": [
+						"jokes",
+						"random"
+					],
+					"query": [
+						{
+							"key": "category",
+							"value": "{{rand_category}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
