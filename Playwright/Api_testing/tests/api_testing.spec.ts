@@ -1,4 +1,7 @@
 import { test, expect } from "@playwright/test";
+import { Utilities } from "./utilities.ts";
+
+const TOOLS = new Utilities();
 
 test("API Get", async ({ request }) => {
   const response = await request.get("https://catfact.ninja/fact");
@@ -24,8 +27,10 @@ test("API post", async ({ request }) => {
   expect(response.ok()).toBeTruthy();
   expect(body.name).toContain("Sakura Fineliner MICRON 005 Black");
   expect(typeof body.data).toBe("object");
-  console.log(body);
   expect(body).toEqual(expect.objectContaining(data_to_send));
+
+  // Teardown
+  TOOLS.delete_element("https://api.restful-api.dev/objects", body.id);
 });
 
 test("API Update", async ({ request }) => {
@@ -64,4 +69,25 @@ test("API Update", async ({ request }) => {
   const updated_body = await update_response.json();
   expect(update_response.ok()).toBeTruthy();
   expect(updated_body).toEqual(expect.objectContaining(data_good));
+
+  // Teardown
+  await TOOLS.delete_element(
+    "https://api.restful-api.dev/objects/",
+    setup_body.id
+  );
+});
+
+test("API Delete", async () => {
+  const api_url = "https://api.restful-api.dev/objects/";
+  // Setup
+  const bad_data = {
+    name: "Data wrong",
+    data: {
+      type: "eveything wrong",
+      right: false,
+    },
+  };
+  const element_id = await TOOLS.create_an_entry(api_url, bad_data);
+  // Test
+  await TOOLS.delete_element(api_url, element_id)
 });
